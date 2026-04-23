@@ -305,8 +305,8 @@ input[type="date"] {
    PRINT — 8.5 × 14 LANDSCAPE
    ════════════════════════════════════════════════ */
 @page {
-  size: 14in 8.5in;
-  margin: 0.25in;
+  size: 14in 8.5in landscape;
+  margin: 0;
 }
 
 @media print {
@@ -331,10 +331,10 @@ input[type="date"] {
   /* Page wrapper = full printable area inside 0.25in margins */
   .page {
     box-shadow: none !important;
-    width:  13.5in !important;
-    height: 8in   !important;
+    width:  14in !important;
+    height: 8.5in !important;
     min-height: unset !important;
-    padding: 0 !important;
+    padding: 0.12in !important;
     gap: 5px !important;
     overflow: hidden !important;
     display: flex !important;
@@ -348,18 +348,32 @@ input[type="date"] {
     min-width: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 3px !important;
-    height: 8in !important;
+    gap: 2px !important;
+    height: calc(8.5in - 0.24in) !important;
     overflow: hidden !important;
   }
 
-  /* Sidebar fixed width */
+  /* Sidebar fixed width, all content compressed to fit */
   .sidebar {
     width: 1.9in !important;
     flex-shrink: 0 !important;
-    height: 8in !important;
+    height: calc(8.5in - 0.24in) !important;
     overflow: hidden !important;
+    gap: 2px !important;
+    font-size: 6pt !important;
   }
+
+  /* Compress sidebar labels and inputs */
+  .sidebar .sb-label { font-size: 6pt !important; margin-bottom: 0 !important; }
+  .sidebar .sb-input, .sidebar .off-input, .sidebar .sb-select,
+  .sidebar input[type="date"], .sidebar select { font-size: 6pt !important; padding: 0 !important; }
+  .sidebar .sb-section { gap: 0 !important; margin-bottom: 1px !important; }
+  .sidebar .eoba-sub { font-size: 5.5pt !important; }
+  .sidebar .toggle-btn { padding: 1px 6px !important; font-size: 6pt !important; }
+  .sidebar .cat-btn { padding: 1px 2px !important; font-size: 5pt !important; line-height: 1.2 !important; }
+  .sidebar .foul-dot { display: none !important; }
+  .sidebar .notes-line { height: 10px !important; }
+  .sidebar .off-input { padding: 0 !important; margin: 0 !important; }
 
   /* Each team section = exactly half the height */
   .team-section {
@@ -368,7 +382,6 @@ input[type="date"] {
     flex-direction: column !important;
     overflow: hidden !important;
     min-height: 0 !important;
-    max-height: calc(4in - 2px) !important;
   }
 
   /* Grid fills the FULL 11.55in main width */
