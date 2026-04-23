@@ -14,13 +14,13 @@
 
   /* Team section */
   .team-section { border: 1.5px solid var(--border); width: 100%; overflow: hidden; display: flex; flex-direction: column; flex: 1; }
-  .team-header { display: grid; grid-template-columns: 2.1in 0.42in 0.24in repeat(8,0.16in) 0.48in repeat(4,1fr) 0.32in; border-bottom: 1px solid var(--border); background: white; }
+  .team-header { display: grid; grid-template-columns: 2.1in 0.42in 0.24in repeat(8,0.16in) 0.78in repeat(4,1fr) 0.28in; border-bottom: 1px solid var(--border); background: white; }
   .team-header > div { border-right: 1px solid var(--border); padding: 1px 2px; font-size: 6.5pt; font-weight: 700; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.1; }
   .team-header > div:last-child { border-right: none; }
-  .ep-nums { display: grid; grid-template-columns: 2.1in 0.42in 0.24in repeat(8,0.16in) 0.48in repeat(4,1fr) 0.32in; border-bottom: 1px solid var(--border); background: #f0f0f0; }
+  .ep-nums { display: grid; grid-template-columns: 2.1in 0.42in 0.24in repeat(8,0.16in) 0.78in repeat(4,1fr) 0.28in; border-bottom: 1px solid var(--border); background: #f0f0f0; }
   .ep-nums > div { border-right: 1px solid var(--border); padding: 0; font-size: 6pt; font-weight: 700; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
   .ep-nums > div:last-child { border-right: none; }
-  .player-row { display: grid; grid-template-columns: 2.1in 0.42in 0.24in repeat(8,0.16in) 0.48in repeat(4,1fr) 0.32in; border-bottom: 1px solid #888; min-height: 0.16in; flex: 1; }
+  .player-row { display: grid; grid-template-columns: 2.1in 0.42in 0.24in repeat(8,0.16in) 0.78in repeat(4,1fr) 0.28in; border-bottom: 1px solid #888; min-height: 0.16in; flex: 1; }
   .player-row:last-child { border-bottom: none; }
   .player-row > div { border-right: 1px solid #888; display: flex; align-items: center; justify-content: center; }
   .player-row > div:last-child { border-right: none; }
@@ -28,7 +28,7 @@
   input[type="text"], input[type="number"] { border: none; outline: none; background: transparent; font-family: inherit; font-size: 7pt; width: 100%; padding: 0 2px; color: #000; }
   input[type="number"] { text-align: center; -moz-appearance: textfield; }
   input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-  .pf-cell { font-size: 6pt; font-weight: 600; color: #aaa; letter-spacing: 1px; padding: 0 2px; display: flex; align-items: center; justify-content: center; }
+  .pf-cell { display: flex; align-items: center; justify-content: center; gap: 2px; padding: 0 3px; overflow: hidden; flex-wrap: nowrap; }
 
   /* Footer row */
   .footer-row { border-top: 1.5px solid var(--border); display: flex; align-items: center; padding: 2px 3px; gap: 8px; font-size: 7pt; font-weight: 700; min-height: 0.18in; }
@@ -85,215 +85,79 @@
   .print-btn { position: fixed; top: 12px; right: 12px; background: #8B0000; color: white; border: none; padding: 8px 16px; font-size: 10pt; font-weight: 700; cursor: pointer; font-family: inherit; border-radius: 3px; z-index: 999; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
   .print-btn:hover { background: #600000; }
 
-  /* ══════════════ PRINT — full 8.5 × 14 landscape ══════════════ */
   @media print {
-    @page {
-      size: legal landscape;   /* 14 × 8.5 in */
-      margin: 0.15in;
-    }
+    @page { size: 14in 8.5in landscape; margin: 0; }
+    html, body { margin: 0; padding: 0; width: 14in; height: 8.5in; }
+    .print-btn { display: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
-    html, body {
-      margin: 0 !important;
-      padding: 0 !important;
-      background: white !important;
-      /* Let the browser scale to fill the page */
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    .print-btn { display: none !important; }
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
-    /* Page wrapper fills the whole printable area */
     .page {
-      box-shadow: none !important;
-      width:  100% !important;
-      height: 100% !important;
-      min-height: unset !important;
-      padding: 0 !important;
-      gap: 4px !important;
+      box-shadow: none;
+      width: 14in !important;
+      height: 8.5in !important;
+      padding: 0.12in !important;
+      gap: 5px !important;
       display: flex !important;
       flex-direction: row !important;
-      overflow: hidden !important;
-      background: white !important;
+      overflow: hidden;
     }
-
-    /* Main column stretches to full height */
     .main {
       flex: 1 !important;
       min-width: 0 !important;
       display: flex !important;
       flex-direction: column !important;
-      gap: 2px !important;
-      height: 100% !important;
-      overflow: hidden !important;
+      gap: 3px !important;
+      height: calc(8.5in - 0.24in) !important;
     }
-
-    /* Sidebar fixed width */
     .sidebar {
-      width: 1.85in !important;
+      width: 2.0in !important;
       flex-shrink: 0 !important;
-      height: 100% !important;
+      height: calc(8.5in - 0.24in) !important;
       overflow: hidden !important;
     }
-
-    /* Each team section takes exactly half the main column height */
     .team-section {
-      flex: 1 1 0 !important;
+      flex: 1 !important;
       display: flex !important;
       flex-direction: column !important;
       overflow: hidden !important;
       min-height: 0 !important;
+      height: calc((8.5in - 0.27in) / 2) !important;
     }
-
-    /* Freeze non-growing rows */
-    .team-header, .ep-nums, .footer-row, .score-track { flex-shrink: 0 !important; }
-
-    /* Roster stretches inside team section */
+    .team-header, .ep-nums {
+      flex-shrink: 0 !important;
+    }
     #rosterA, #rosterB {
       flex: 1 !important;
       display: flex !important;
       flex-direction: column !important;
       min-height: 0 !important;
+      overflow: hidden !important;
     }
-
-    /* Player rows share roster height equally */
     .player-row {
-      flex: 1 1 0 !important;
+      flex: 1 !important;
       min-height: 0 !important;
     }
-
-    /* Score rows */
-    .score-row { min-height: 0.16in !important; }
-
-    /* Grid columns stretch period cols to fill full width */
-    .team-header, .ep-nums, .player-row {
-      grid-template-columns: 2.0in 0.38in 0.22in repeat(8,0.15in) 0.44in repeat(4,1fr) 0.28in !important;
+    .footer-row {
+      flex-shrink: 0 !important;
+      min-height: 0.16in !important;
+      padding: 1px 3px !important;
     }
-
-    .snum { font-size: 8pt !important; }
-    .footer-row { font-size: 6pt !important; min-height: 0.14in !important; padding: 1px 3px !important; }
-  }
-
-  /* ══════════════ MOBILE — phones & small tablets ══════════════ */
-  @media screen and (max-width: 780px) {
-    body { background: #f0f0f0; padding: 0; font-size: 11pt; }
-
-    .page {
-      width: 100% !important;
-      min-height: unset !important;
-      flex-direction: column !important;
-      padding: 8px !important;
-      gap: 10px !important;
-      box-shadow: none !important;
-      background: #f0f0f0 !important;
+    .score-track {
+      flex-shrink: 0 !important;
     }
-
-    /* ── Sidebar becomes a full-width card on mobile ── */
-    .sidebar {
-      width: 100% !important;
-      border-left: none !important;
-      border-top: 2px solid #333;
-      padding: 10px 8px 8px !important;
-      display: flex !important;
-      flex-direction: row !important;
-      flex-wrap: wrap !important;
-      gap: 10px !important;
-      background: white;
-      border-radius: 6px;
-    }
-    .eoba-logo-block { width: 100%; }
-    .sb-section { flex: 1 1 140px; min-width: 140px; }
-
-    /* ── Each team section is a scrollable card ── */
-    .team-section {
-      width: 100% !important;
-      background: white;
-      border-radius: 6px;
-      overflow: hidden !important;
-      border: 2px solid #333 !important;
-    }
-
-    /* Scroll the grid horizontally */
-    .team-header, .ep-nums, #rosterA, #rosterB {
-      overflow-x: auto !important;
-      min-width: 0 !important;
+    .score-row {
+      min-height: 0.17in !important;
     }
     .team-header, .ep-nums, .player-row {
-      grid-template-columns: 160px 48px 36px repeat(8,24px) 52px repeat(4,80px) 38px !important;
-      min-width: 700px !important;
+      grid-template-columns: 2.1in 0.42in 0.24in repeat(8,0.16in) 0.78in repeat(4,1fr) 0.28in !important;
     }
-
-    /* ── Inputs get VISIBLE borders on mobile ── */
-    input[type="text"],
-    input[type="number"],
-    input[type="date"],
-    select,
-    .sb-input,
-    .off-input,
-    .score-box-input {
-      border: 1.5px solid #888 !important;
-      border-radius: 4px !important;
-      background: #fff !important;
-      font-size: 13pt !important;
-      padding: 5px 6px !important;
-      width: 100% !important;
-      margin-top: 2px !important;
-    }
-
-    /* ── Player row inputs ── */
-    .player-row input[type="text"] {
-      border: 1px solid #aaa !important;
-      border-radius: 3px !important;
-      background: #fafafa !important;
-      font-size: 10pt !important;
-      padding: 2px 4px !important;
-    }
-    .player-row input[type="number"] {
-      border: 1px solid #aaa !important;
-      border-radius: 3px !important;
-      background: #fafafa !important;
-      font-size: 10pt !important;
-    }
-
-    /* ── Labels ── */
-    .sb-label { font-size: 11pt !important; margin-bottom: 3px !important; }
-
-    /* ── Buttons ── */
-    .toggle-btn { padding: 8px 18px !important; font-size: 11pt !important; }
-    .cat-btn    { padding: 7px 5px  !important; font-size: 9pt  !important; }
-    .print-btn  { position: fixed; bottom: 14px; right: 14px; top: unset !important;
-                  padding: 12px 22px !important; font-size: 13pt !important; border-radius: 6px !important; }
-
-    /* ── Foul dots ── */
-    .foul-dot { width: 22px !important; height: 22px !important; font-size: 11pt !important; }
-    .foul-dot-wrap { padding: 4px 6px !important; }
-
-    /* ── Score numbers ── */
-    .score-nums { flex-wrap: wrap !important; gap: 3px 2px !important; }
-    .snum { font-size: 12pt !important; }
-    .score-track { overflow-x: auto !important; min-width: 700px; }
-    .score-row { min-height: 0.28in !important; }
-
-    /* ── Timeout boxes ── */
-    .hbox { width: 20px !important; height: 20px !important; font-size: 9pt !important; }
-    .to-box { width: 18px !important; height: 18px !important; }
-
-    /* ── Footer coach row ── */
-    .footer-row { flex-wrap: wrap !important; gap: 6px !important; font-size: 10pt !important; min-height: 0.4in !important; }
-    .footer-row input[type="text"] { font-size: 12pt !important; border: 1.5px solid #888 !important;
-                                      border-radius: 4px !important; background: #fff !important; padding: 4px 6px !important; }
-
-    /* ── Notes lines visible on mobile ── */
-    .notes-line { border-bottom: 1.5px solid #888 !important; height: 28px !important; }
   }
-
   .foul-dot-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:2px 3px; }
   .foul-dot-label { font-size:5.5pt; font-weight:700; white-space:nowrap; line-height:1; }
   .foul-dot-row { display:flex; gap:2px; align-items:center; }
   .foul-dot {
-    width: 13px; height: 13px; border-radius: 50%;
-    border: 1.5px solid #333; font-size: 7pt; font-weight: 700;
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 1.5px solid #333; font-size: 6.5pt; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; user-select: none; line-height: 1;
     transition: background 0.15s, color 0.15s;
@@ -385,25 +249,61 @@
 
     <div class="sb-section">
       <div class="sb-label">School/GYM:</div>
-      <input class="sb-input" type="text" placeholder="School or gym name">
+      <input class="sb-input" type="text" placeholder="School or Gym name">
     </div>
 
     <div class="sb-section">
       <div class="sb-label">Game Time:</div>
-      <select class="sb-input" style="cursor:pointer;">
-        <option value="">-- Select time --</option>
-        <option>00:00</option><option>00:30</option><option>01:00</option><option>01:30</option>
-        <option>02:00</option><option>02:30</option><option>03:00</option><option>03:30</option>
-        <option>04:00</option><option>04:30</option><option>05:00</option><option>05:30</option>
-        <option>06:00</option><option>06:30</option><option>07:00</option><option>07:30</option>
-        <option>08:00</option><option>08:30</option><option>09:00</option><option>09:30</option>
-        <option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
-        <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
-        <option>14:00</option><option>14:30</option><option>15:00</option><option>15:30</option>
-        <option>16:00</option><option>16:30</option><option>17:00</option><option>17:30</option>
-        <option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option>
-        <option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option>
-        <option>22:00</option><option>22:30</option><option>23:00</option><option>23:30</option>
+      <select class="sb-input" style="font-family:inherit;font-size:7.5pt;border:none;border-bottom:1px solid #999;outline:none;width:100%;background:white;padding:2px 0;">
+        <option value="">-- Select Time --</option>
+        <option value="00:00">00:00</option>
+        <option value="00:30">00:30</option>
+        <option value="01:00">01:00</option>
+        <option value="01:30">01:30</option>
+        <option value="02:00">02:00</option>
+        <option value="02:30">02:30</option>
+        <option value="03:00">03:00</option>
+        <option value="03:30">03:30</option>
+        <option value="04:00">04:00</option>
+        <option value="04:30">04:30</option>
+        <option value="05:00">05:00</option>
+        <option value="05:30">05:30</option>
+        <option value="06:00">06:00</option>
+        <option value="06:30">06:30</option>
+        <option value="07:00">07:00</option>
+        <option value="07:30">07:30</option>
+        <option value="08:00">08:00</option>
+        <option value="08:30">08:30</option>
+        <option value="09:00">09:00</option>
+        <option value="09:30">09:30</option>
+        <option value="10:00">10:00</option>
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <option value="11:30">11:30</option>
+        <option value="12:00">12:00</option>
+        <option value="12:30">12:30</option>
+        <option value="13:00">13:00</option>
+        <option value="13:30">13:30</option>
+        <option value="14:00">14:00</option>
+        <option value="14:30">14:30</option>
+        <option value="15:00">15:00</option>
+        <option value="15:30">15:30</option>
+        <option value="16:00">16:00</option>
+        <option value="16:30">16:30</option>
+        <option value="17:00">17:00</option>
+        <option value="17:30">17:30</option>
+        <option value="18:00">18:00</option>
+        <option value="18:30">18:30</option>
+        <option value="19:00">19:00</option>
+        <option value="19:30">19:30</option>
+        <option value="20:00">20:00</option>
+        <option value="20:30">20:30</option>
+        <option value="21:00">21:00</option>
+        <option value="21:30">21:30</option>
+        <option value="22:00">22:00</option>
+        <option value="22:30">22:30</option>
+        <option value="23:00">23:00</option>
+        <option value="23:30">23:30</option>
       </select>
     </div>
 
@@ -494,7 +394,7 @@ function buildRoster(id) {
       <div></div>
       <div><input type="number" min="0" max="99" style="width:100%;text-align:center;font-size:7pt;"></div>
       ${Array(8).fill('<div></div>').join('')}
-      <div class="pf-cell">1 2 3 4 5</div>
+      <div class="pf-cell"><div class="foul-dot" onclick="this.classList.toggle('filled')">1</div><div class="foul-dot" onclick="this.classList.toggle('filled')">2</div><div class="foul-dot" onclick="this.classList.toggle('filled')">3</div><div class="foul-dot" onclick="this.classList.toggle('filled')">4</div><div class="foul-dot" onclick="this.classList.toggle('filled')">5</div></div>
       <div></div><div></div><div></div><div></div><div></div>
     `;
     c.appendChild(r);
